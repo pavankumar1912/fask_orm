@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 def hello():
 	return '<h1>Welcome to Inventory Application</h1>'
 
-
+print('hello')
 if __name__ == '__main__':
 
     app.run()
