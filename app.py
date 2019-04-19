@@ -44,6 +44,20 @@ def add_user():
 
     return "post call success"
 
+class Db(Resource):
+    def get(self):
+        c = Employee.query.all()
+        print(c)
+        return "classbased GET call"
+
+    def post(self):
+        pass
+
+
+
+
+api.add_resource(Db,"/get",endpoint="Db")
+
 
 if __name__ == '__main__':
 
