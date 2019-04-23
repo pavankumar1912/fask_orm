@@ -9,5 +9,7 @@ api = Api(app)
 api.add_resource(AddUser, '/user', endpoint = 'AddUser')
 api.add_resource(Userlogin,'/userlogin', endpoint = 'Userlogin')
 api.add_resource(DeleteUser,'/delete', endpoint = 'DeleteUser')
+api.add_resource(ForgotPassword,'/forgot', endpoint = 'ForgotPassword')
+
 if __name__ == "__main__":
     app.run()

@@ -5,6 +5,9 @@ from modles import *
 import hashlib
 from uuid import uuid4
 from flask_sqlalchemy import sqlalchemy
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
 
 class AddUser(Resource):
     def get(self):
@@ -14,7 +17,7 @@ class AddUser(Resource):
         return jsonify(result=result)
     def post(self):
         data = request.json
-        cols = ['name','useremail','role_id']
+        #cols = ['name','useremail','role_id']
         # verify = db.session.query(Users).filter(Users.useremail == data['email'])
         # result = [{col: getattr(d, col) for col in cols} for d in verify]
         # info = Users(name = data['name'], useremail = data['email'],password = data['password'], role_id = data['role_id'])
@@ -42,7 +45,7 @@ class Userlogin(Resource):
         #print(result)
         result = Users.query.filter_by(useremail = data['email']).first()
         #print(result.password[0:32])
-        # result = [{col: getattr(d, col) for col in cols} for d in result]
+        #result = [{col: getattr(d, col) for col in cols} for d in result]
         if result == None:
              return 'invalid user'
         else:
@@ -71,4 +74,17 @@ class DeleteUser(Resource):
 class UpdateUser(Resource):
     def put(self):
         data = request.json
-        Users.query.filter_by(useremail = data['email']).updata({})
+        Users.query.filter_by(useremail = data['email'])
+        return "ffff"
+
+
+class ForgotPassword(Resource):
+    def post(self):
+        data = request.json
+        result = Users.query.filter_by(useremail = data['email']).first()
+        if result == None:
+            return 'email does not exists'
+
+        else:
+            return 'hi check your mail'+result.useremail
+
